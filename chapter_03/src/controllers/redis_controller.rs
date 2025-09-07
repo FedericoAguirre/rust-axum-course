@@ -1,11 +1,11 @@
-use axum::{
-    extract::{Path, Extension},
-    Json,
-};
-use serde::Deserialize;
-use deadpool_redis::Pool;
-use crate::models::redis_model;
 use crate::errors::AppError;
+use crate::models::redis_model;
+use axum::{
+    Json,
+    extract::{Extension, Path},
+};
+use deadpool_redis::Pool;
+use serde::Deserialize;
 use tracing::info;
 
 #[derive(Deserialize)]
@@ -21,7 +21,9 @@ pub async fn set_key(
 ) -> Result<Json<serde_json::Value>, AppError> {
     info!(action="SET", key=%key, value=%payload.value, "Saving value in Redis");
     redis_model::set_value(&pool, &key, &payload.value).await?;
-    Ok(Json(serde_json::json!({ "status": "ok", "key": key, "value": payload.value })))
+    Ok(Json(
+        serde_json::json!({ "status": "ok", "key": key, "value": payload.value }),
+    ))
 }
 
 // GET /get/{key}

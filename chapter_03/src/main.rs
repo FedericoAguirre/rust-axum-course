@@ -1,9 +1,9 @@
-use axum::{routing::get, Extension, Router};
+use axum::{Extension, Router, routing::get};
+use deadpool_redis::{Config, Runtime};
 use dotenvy::dotenv;
 use std::net::SocketAddr;
-use tracing_subscriber;
-use deadpool_redis::{Config, Runtime};
 use tower_http::trace::TraceLayer;
+use tracing_subscriber;
 
 mod controllers;
 mod errors;
@@ -22,8 +22,9 @@ async fn main() {
     // 🔹 Configuración de Redis desde .env
     let redis_url = std::env::var("REDIS_URL").unwrap_or_else(|_| "redis://127.0.0.1/".to_string());
     let mut cfg = Config::from_url(redis_url);
-    let pool = cfg.create_pool(Some(Runtime::Tokio1)).expect("Cannot create Redis pool");
-
+    let pool = cfg
+        .create_pool(Some(Runtime::Tokio1))
+        .expect("Cannot create Redis pool");
 
     // Definir router
     let app = routes::create_routes().layer(Extension(pool));

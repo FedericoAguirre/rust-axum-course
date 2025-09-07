@@ -1,11 +1,11 @@
-use axum::{
-    extract::{Path, Extension},
-    Json,
-};
-use serde::Deserialize;
-use deadpool_redis::Pool;
-use crate::models::redis_model;
 use crate::errors::AppError;
+use crate::models::redis_model;
+use axum::{
+    Json,
+    extract::{Extension, Path},
+};
+use deadpool_redis::Pool;
+use serde::Deserialize;
 
 #[derive(Deserialize)]
 pub struct SetValue {
@@ -19,7 +19,9 @@ pub async fn set_key(
     Json(payload): Json<SetValue>,
 ) -> Result<Json<serde_json::Value>, AppError> {
     redis_model::set_value(&pool, &key, &payload.value).await?;
-    Ok(Json(serde_json::json!({ "status": "ok", "key": key, "value": payload.value })))
+    Ok(Json(
+        serde_json::json!({ "status": "ok", "key": key, "value": payload.value }),
+    ))
 }
 
 // GET /get/{key}

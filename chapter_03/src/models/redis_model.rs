@@ -1,5 +1,5 @@
-use deadpool_redis::{Pool, redis::{AsyncCommands}};
 use crate::errors::AppError;
+use deadpool_redis::{Pool, redis::AsyncCommands};
 
 // Guardar valor en Redis
 pub async fn set_value(pool: &Pool, key: &str, value: &str) -> Result<(), AppError> {
