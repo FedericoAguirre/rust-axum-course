@@ -1,0 +1,30 @@
+[package]
+name = "chapter_01"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# Web framework
+axum = "0.8.4"
+tokio = { version = "1", features = ["full"] }
+
+# Redis
+deadpool-redis = "0.22.0"
+
+# JSON
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.143"
+
+# Logs y tracing
+tracing = "0.1.41"
+tracing-subscriber = { version = "0.3.19", features = ["fmt", "env-filter"] }
+tower-http = { version = "0.6.6", features = ["trace"] }
+
+# Para variables de entorno
+dotenvy = "0.15.7"
+
+# Manejo de errores
+thiserror = "2.0.16"
+
+# Telemetría opcional (más adelante)
+prometheus = "0.14.0"
