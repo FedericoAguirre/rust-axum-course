@@ -35,3 +35,12 @@ pub async fn get_key(
         Err(AppError::NotFound)
     }
 }
+
+// DELETE /del/{key}
+pub async fn del_key(
+    Path(key): Path<String>,
+    Extension(pool): Extension<Pool>,
+) -> Result<Json<serde_json::Value>, AppError> {
+    redis_model::del_key(&pool, &key).await?;
+    Ok(Json(serde_json::json!({ "status": "deleted", "key": key })))
+}

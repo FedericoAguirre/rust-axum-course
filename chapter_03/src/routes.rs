@@ -9,4 +9,8 @@ pub fn create_routes() -> Router {
         .route("/hello/{name}", get(hello_controller::hello))
         .route("/get/{key}", get(redis_controller::get_key))
         .route("/set/{key}", post(redis_controller::set_key))
+        .route(
+            "/del/{key}",
+            axum::routing::delete(redis_controller::del_key),
+        )
 }
