@@ -1,4 +1,4 @@
-use axum::{Extension, Router, routing::get};
+use axum::Extension;
 use deadpool_redis::{Config, Runtime};
 use dotenvy::dotenv;
 use std::net::SocketAddr;
@@ -20,7 +20,7 @@ async fn main() {
 
     // 🔹 Configuración de Redis desde .env
     let redis_url = std::env::var("REDIS_URL").unwrap_or_else(|_| "redis://127.0.0.1/".to_string());
-    let mut cfg = Config::from_url(redis_url);
+    let cfg = Config::from_url(redis_url);
     let pool = cfg
         .create_pool(Some(Runtime::Tokio1))
         .expect("Cannot create Redis pool");
