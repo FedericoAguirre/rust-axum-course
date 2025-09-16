@@ -17,11 +17,11 @@ pub async fn hello(Path(name): Path<String>) -> Json<HelloResponse> {
 mod tests {
     use super::*;
     use crate::routes::create_routes;
-    use axum::Router;
+
     use axum::body;
     use axum::body::Body;
     use axum::http::{Request, StatusCode};
-    use axum::routing::get;
+
     use tower::ServiceExt; // for `oneshot`
 
     #[tokio::test]

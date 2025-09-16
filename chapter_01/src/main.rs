@@ -1,4 +1,3 @@
-use axum::{Router, routing::get};
 use dotenvy::dotenv;
 use std::net::SocketAddr;
 use tracing_subscriber;
