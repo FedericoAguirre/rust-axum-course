@@ -28,3 +28,4 @@ thiserror = "2.0.16"
 
 # Telemetría opcional (más adelante)
 prometheus = "0.14.0"
+tower = "0.5.2"
