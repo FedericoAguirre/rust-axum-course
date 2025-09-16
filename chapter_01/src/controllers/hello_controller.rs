@@ -1,4 +1,3 @@
-// filepath: /home/federico/Documents/projects/rust-axum-course/chapter_01/src/controllers/hello_controller.rs
 use axum::{Json, extract::Path};
 use serde::Serialize;
 
